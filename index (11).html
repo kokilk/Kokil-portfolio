@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kokil TN — AI Strategy & Business Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04080F;--bg2:#080E1A;--sf:#0B1221;--br:#162035;--bl:#0EA5E9;--bld:rgba(14,165,233,.12);--go:#E8A020;--god:rgba(232,160,32,.12);--gn:#10D9A0;--gnd:rgba(16,217,160,.1);--tx:#D4E2F4;--mt:#5A7494;--fa:#1A2840}
+body.light{--bg:#F0F4FA;--bg2:#E4EBF5;--sf:#FFFFFF;--br:#C8D6E8;--bl:#0284C7;--bld:rgba(2,132,199,.1);--go:#B45309;--god:rgba(180,83,9,.1);--gn:#059669;--gnd:rgba(5,150,105,.1);--tx:#0F1E30;--mt:#4A6080;--fa:#C8D6E8}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none}
+#pbar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--bl),var(--gn));z-index:1000}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;transition:opacity .6s,transform .6s}
+#splash.hide{opacity:0;transform:scale(.96);pointer-events:none}
+.sm{font-family:'Syne',sans-serif;font-size:clamp(64px,12vw,112px);font-weight:800;color:var(--bl);letter-spacing:-4px;animation:pglow 2s ease-in-out infinite}
+@keyframes pglow{0%,100%{text-shadow:0 0 40px rgba(14,165,233,.4)}50%{text-shadow:0 0 80px rgba(14,165,233,.7)}}
+.sbw{width:200px;height:2px;background:var(--fa);border-radius:2px;overflow:hidden}
+.sb{height:100%;background:linear-gradient(90deg,var(--bl),var(--gn));width:0%;transition:width 1.6s cubic-bezier(.4,0,.2,1)}
+.sp{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mt);transition:opacity .2s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,80px);height:60px;background:rgba(4,8,15,.9);backdrop-filter:blur(20px);border-bottom:1px solid rgba(22,32,53,.5)}
+body.light nav{background:rgba(240,244,250,.94)}
+.nlo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--bl);text-decoration:none;letter-spacing:-1px}
+.nls{display:flex;gap:32px;list-style:none}
+.nls a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mt);text-decoration:none;transition:color .2s}
+.nls a:hover,.nls a.act{color:var(--bl)}
+.nr{display:flex;align-items:center;gap:12px}
+.tbtn{background:var(--sf);border:1px solid var(--br);border-radius:100px;padding:6px 14px;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mt);display:flex;align-items:center;gap:6px;transition:all .2s}
+.tbtn:hover{border-color:var(--bl);color:var(--bl)}
+.nbg{display:none;background:none;border:1px solid var(--br);color:var(--tx);padding:8px;cursor:pointer;border-radius:6px;font-size:16px}
+.mm{display:none;position:fixed;inset:0;background:rgba(4,8,15,.97);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mm.open{display:flex}
+.mm a{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;color:var(--tx);text-decoration:none}
+.mm a:hover{color:var(--bl)}
+.mc{position:absolute;top:20px;right:24px;background:none;border:none;color:var(--mt);font-size:28px;cursor:pointer}
+section{position:relative;z-index:1}
+.ct{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,80px)}
+.sl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--bl);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.sl::before{content:'';width:24px;height:1px;background:var(--bl)}
+.st{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:48px}
+.hi{color:var(--bl)}
+.sd{height:1px;background:linear-gradient(90deg,transparent,rgba(14,165,233,.15) 50%,transparent);position:relative;z-index:1}
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:80px;padding-bottom:60px}
+#hero .ct{width:100%}
+.h2col{display:flex;flex-direction:row;gap:60px;align-items:flex-start;width:100%;padding-top:10px}
+.hleft{flex:1;min-width:0;z-index:2}
+.bwrap{flex-shrink:0;width:460px;height:460px;position:relative}
+#bc{display:block;width:460px;height:460px;cursor:crosshair;border-radius:16px;border:1px solid rgba(14,165,233,.15);background:rgba(14,165,233,.02)}
+.bhint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);white-space:nowrap;opacity:.5;pointer-events:none}
+.htag{display:inline-flex;align-items:center;gap:8px;background:var(--bld);border:1px solid rgba(14,165,233,.25);border-radius:100px;padding:6px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--bl);margin-bottom:24px}
+.htag::before{content:'';width:6px;height:6px;background:var(--gn);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hn{font-family:'Syne',sans-serif;font-size:clamp(20px,2.6vw,46px);font-weight:800;letter-spacing:-1px;line-height:1.08;margin-bottom:14px;white-space:nowrap}
+.hn span{color:var(--bl);display:block;white-space:nowrap}
+.htit{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.3vw,13px);color:var(--mt);letter-spacing:.05em;margin-bottom:22px}
+.hsum{font-size:clamp(14px,1.4vw,17px);color:var(--tx);max-width:520px;line-height:1.65;margin-bottom:32px}
+.hctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
+.bp{display:inline-flex;align-items:center;gap:8px;background:var(--bl);color:#fff;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;padding:12px 24px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:all .25s;box-shadow:0 0 28px rgba(14,165,233,.3)}
+.bp:hover{background:#38bdf8;transform:translateY(-2px)}
+.bg2{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--tx);font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;padding:12px 24px;border-radius:8px;text-decoration:none;border:1px solid var(--br);cursor:pointer;transition:all .25s}
+.bg2:hover{border-color:var(--bl);color:var(--bl);transform:translateY(-2px)}
+.tw{overflow:hidden;padding:10px 0;border-top:1px solid var(--fa);border-bottom:1px solid var(--fa);mask-image:linear-gradient(90deg,transparent,black 10%,black 90%,transparent)}
+.tt{display:flex;gap:48px;animation:tick 22s linear infinite;width:max-content}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt);white-space:nowrap;display:flex;align-items:center;gap:10px}
+.ti::after{content:'◆';color:var(--bl);font-size:7px}
+.sh{margin-top:32px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.sh span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);letter-spacing:.1em}
+.sa{width:20px;height:20px;border-left:1.5px solid var(--mt);border-bottom:1.5px solid var(--mt);transform:rotate(-45deg);animation:bnc 2s ease-in-out infinite}
+@keyframes bnc{0%,100%{transform:rotate(-45deg) translateY(0)}50%{transform:rotate(-45deg) translateY(5px)}}
+#impact{background:var(--bg2);border-top:1px solid var(--fa);border-bottom:1px solid var(--fa);padding:48px 0;position:relative;z-index:1}
+.igrid{display:grid;grid-template-columns:repeat(4,1fr)}
+.iitem{padding:20px 12px;text-align:center;border-right:1px solid var(--fa)}
+.iitem:last-child{border-right:none}
+.inum{font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,54px);font-weight:800;color:var(--bl);line-height:1;margin-bottom:6px}
+.ilbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt);letter-spacing:.08em}
+#about{padding:100px 0}
+.agrid{display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:start}
+.atxt p{font-size:16px;color:var(--tx);line-height:1.75;margin-bottom:18px}
+.pcard{background:var(--sf);border:1px solid var(--br);border-radius:16px;padding:28px;position:sticky;top:80px;box-shadow:0 0 50px rgba(14,165,233,.06);transition:box-shadow .3s}
+.pcard:hover{box-shadow:0 0 70px rgba(14,165,233,.12)}
+.pname{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.prole{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--bl);margin-bottom:20px}
+.ftag{display:inline-flex;align-items:center;gap:6px;background:var(--gnd);border:1px solid rgba(16,217,160,.25);border-radius:100px;padding:5px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gn);margin-bottom:18px}
+.ftag::before{content:'';width:6px;height:6px;background:var(--gn);border-radius:50%;animation:blink 1.5s ease-in-out infinite}
+.pinfo{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--fa)}
+.pinfo a{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mt);text-decoration:none;transition:color .2s}
+.pinfo a:hover{color:var(--bl)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{background:var(--bld);border:1px solid rgba(14,165,233,.2);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--bl);cursor:default;transition:all .2s}
+.chip:hover{background:rgba(14,165,233,.2)}
+.chip.gold{background:var(--god);border-color:rgba(232,160,32,.2);color:var(--go)}
+.chip.green{background:var(--gnd);border-color:rgba(16,217,160,.2);color:var(--gn)}
+#experience{padding:100px 0;background:var(--bg2)}
+.tline{position:relative;padding-left:32px}
+.tline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--bl),var(--fa) 70%,transparent)}
+.titem{position:relative;margin-bottom:40px}
+.titem::before{content:'◆';position:absolute;left:-39px;top:5px;color:var(--bl);font-size:9px;background:var(--bg2);padding:2px 0}
+.ecard{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:26px;transition:all .3s}
+.ecard:hover{border-color:rgba(14,165,233,.3);transform:translateX(4px)}
+.ehead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;gap:16px;flex-wrap:wrap}
+.eco{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;margin-bottom:3px}
+.ero{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--bl)}
+.emeta{text-align:right}
+.edate{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt);margin-bottom:3px}
+.eloc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);opacity:.6}
+.ecall{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);border-left:3px solid var(--bl);border-radius:0 8px 8px 0;padding:11px 15px;margin-bottom:14px;font-size:13px;color:var(--tx)}
+.ecall strong{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--bl);display:block;margin-bottom:4px}
+.ebul{list-style:none}
+.ebul li{display:flex;gap:10px;font-size:14px;color:var(--tx);line-height:1.65;padding:5px 0;border-bottom:1px solid rgba(26,40,64,.4)}
+.ebul li:last-child{border-bottom:none}
+.ebul li::before{content:'◆';color:var(--bl);font-size:8px;margin-top:6px;flex-shrink:0}
+.mbadge{display:inline-flex;background:var(--god);border:1px solid rgba(232,160,32,.25);border-radius:4px;padding:1px 7px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--go);margin:0 2px}
+.etools{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--fa)}
+.etools span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);padding:3px 9px;border:1px solid var(--fa);border-radius:4px}
+#skills{padding:100px 0}
+.skgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.skg{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:22px;transition:all .3s}
+.skg:hover{border-color:rgba(14,165,233,.25)}
+.skgt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.skgt::before{content:'';width:14px;height:1px;background:var(--bl)}
+#education{padding:100px 0;background:var(--bg2)}
+.edgrid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.edcard,.ccard{background:var(--sf);border:1px solid var(--br);border-radius:12px;padding:26px;margin-bottom:16px;transition:all .3s}
+.edcard:hover,.ccard:hover{border-color:rgba(14,165,233,.25);transform:translateY(-2px)}
+.edinst{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;margin-bottom:5px}
+.eddeg{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--bl);margin-bottom:4px}
+.eddt{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt)}
+.cname{font-size:14px;font-weight:500;margin-bottom:3px}
+.ciss{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt)}
+.vbadge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--gn);margin-top:6px}
+#contact{padding:120px 0;text-align:center;position:relative}
+#contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(14,165,233,.04) 0%,transparent 70%);pointer-events:none}
+.chead{font-family:'Syne',sans-serif;font-size:clamp(36px,6vw,70px);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:18px}
+.csub{font-size:17px;color:var(--mt);margin-bottom:44px;max-width:480px;margin-left:auto;margin-right:auto}
+.cbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
+.cform{max-width:540px;margin:0 auto;background:var(--sf);border:1px solid var(--br);border-radius:16px;padding:32px;text-align:left}
+.frow{margin-bottom:18px}
+.frow label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--mt);letter-spacing:.08em;margin-bottom:7px}
+.frow input,.frow textarea{width:100%;background:var(--bg);border:1px solid var(--br);border-radius:8px;padding:11px 15px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.frow input:focus,.frow textarea:focus{border-color:var(--bl)}
+.frow textarea{height:110px;resize:vertical}
+footer{padding:26px 0;border-top:1px solid var(--fa);position:relative;z-index:1}
+.finner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.fcopy{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mt)}
+.flinks{display:flex;gap:22px}
+.flinks a{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mt);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--bl)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@media(max-width:1100px){.h2col{flex-direction:column}.bwrap{width:100%;height:340px;min-width:unset}#bc{width:100%;height:340px}.agrid{grid-template-columns:1fr}.pcard{position:static}.skgrid{grid-template-columns:1fr 1fr}.edgrid{grid-template-columns:1fr}.igrid{grid-template-columns:repeat(2,1fr)}.iitem:nth-child(2){border-right:none}}
+@media(max-width:640px){.nls{display:none}.nbg{display:block}.hn{white-space:normal;font-size:clamp(26px,6vw,42px)}.skgrid{grid-template-columns:1fr}.ehead{flex-direction:column}.emeta{text-align:left}.bwrap{height:280px}#bc{height:280px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}#bgc{display:none}}
+</style>
+</head>
+<body>
+
+<canvas id="bgc"></canvas>
+<div id="pbar"></div>
+
+<div id="splash">
+  <div class="sm">KT</div>
+  <div class="sbw"><div class="sb" id="sb"></div></div>
+  <div class="sp" id="sp">Bridging AI and Business Strategy.</div>
+</div>
+
+<nav>
+  <a href="#hero" class="nlo">KT</a>
+  <ul class="nls">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nr">
+    <button class="tbtn" onclick="toggleTheme()"><span id="ti">☀️</span><span id="tl">Light</span></button>
+    <button class="nbg" onclick="document.querySelector('.mm').classList.add('open')">☰</button>
+  </div>
+</nav>
+
+<div class="mm">
+  <button class="mc" onclick="document.querySelector('.mm').classList.remove('open')">✕</button>
+  <a href="#about" onclick="document.querySelector('.mm').classList.remove('open')">About</a>
+  <a href="#experience" onclick="document.querySelector('.mm').classList.remove('open')">Experience</a>
+  <a href="#skills" onclick="document.querySelector('.mm').classList.remove('open')">Skills</a>
+  <a href="#education" onclick="document.querySelector('.mm').classList.remove('open')">Education</a>
+  <a href="#contact" onclick="document.querySelector('.mm').classList.remove('open')">Contact</a>
+</div>
+
+<section id="hero">
+  <div class="ct">
+    <div class="h2col">
+      <div class="hleft">
+        <div class="htag rv">AI Automation &amp; Strategy Consultant</div>
+        <h1 class="hn rv d1">Kokil<br><span>Terakanambenagaraj</span></h1>
+        <div class="htit rv d2">Consultant @ IBC &nbsp;·&nbsp; Strategy @ UIUC &nbsp;·&nbsp; AI Workflow Automation</div>
+        <p class="hsum rv d3">AI and business strategy consultant specializing in AI workflow design and intelligent automation. I design AI logic and build automated systems using <span class="hi">GPT, Claude, Gemini, and n8n</span>.</p>
+        <div class="hctas rv d4">
+          <a href="#experience" class="bp">View My Work ↓</a>
+          <a href="#contact" class="bg2">Get In Touch →</a>
+        </div>
+        <div class="tw rv">
+          <div class="tt">
+            <span class="ti">AI Automation</span><span class="ti">Business Strategy</span><span class="ti">n8n Workflows</span><span class="ti">Salesforce</span><span class="ti">Agentic AI</span><span class="ti">Tableau</span><span class="ti">Consulting</span>
+            <span class="ti">AI Automation</span><span class="ti">Business Strategy</span><span class="ti">n8n Workflows</span><span class="ti">Salesforce</span><span class="ti">Agentic AI</span><span class="ti">Tableau</span><span class="ti">Consulting</span>
+          </div>
+        </div>
+        <div class="sh rv"><span>SCROLL</span><div class="sa"></div></div>
+      </div>
+      <div class="bwrap rv d2">
+        <canvas id="bc" width="460" height="460"></canvas>
+        <div class="bhint">hover · drag · click to interact</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="impact">
+  <div class="ct">
+    <div class="igrid">
+      <div class="iitem rv"><div class="inum" data-target="67" data-suffix="%">0%</div><div class="ilbl">Engagement Increase</div></div>
+      <div class="iitem rv d1"><div class="inum" data-target="299" data-suffix="">0</div><div class="ilbl">Feedback Responses</div></div>
+      <div class="iitem rv d2"><div class="inum" data-target="4" data-suffix="+">0+</div><div class="ilbl">Years Experience</div></div>
+      <div class="iitem rv d3"><div class="inum" data-target="5" data-suffix="">0</div><div class="ilbl">Certifications</div></div>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="ct">
+    <div class="sl rv">01 — About</div>
+    <div class="agrid">
+      <div class="atxt">
+        <div class="st rv">Where AI Meets<br>Business Impact</div>
+        <p class="rv">I am a consultant at <span class="hi">Illinois Business Consulting</span>, where I work on AI innovation, strategy, and workflow design to help organizations integrate emerging technologies into real business processes.</p>
+        <p class="rv d1">I am a Business Administration graduate from the <span class="hi">University of Illinois Urbana-Champaign</span> with experience translating complex data into actionable insights and building clear, compelling strategy narratives for decision-makers.</p>
+        <p class="rv d2">My work sits at the intersection of business strategy and AI systems. I design AI logic and intelligent workflows using frontier models such as <span class="hi">GPT, Claude, and Gemini</span>, along with workflow automation platforms like <span class="hi">n8n</span> to support research, strategy development, and operational efficiency.</p>
+        <p class="rv d3">Across my experience — from conducting market research at <span class="hi">Curefit</span> and managing community experiences at <span class="hi">WeWork India</span>, to consulting within one of the largest student-run consulting organizations in the nation — I bring a global perspective to every engagement.</p>
+        <p class="rv d4">I am particularly interested in strategy consulting, global markets, and the design of AI-enabled business systems, using data, automation, and intelligent workflows to solve complex business problems with clarity and impact.</p>
+      </div>
+      <div class="rv d2">
+        <div class="pcard">
+          <div class="pname">Kokil Terakanambenagaraj</div>
+          <div class="prole">AI Automation &amp; Workflow Consultant</div>
+          <div class="ftag">Currently: Consulting @ IBC</div>
+          <div class="pinfo">
+            <a href="mailto:kokiltn@gmail.com">📧 kokiltn@gmail.com</a>
+            <a href="https://www.linkedin.com/in/kokil-tn" target="_blank">🔗 linkedin.com/in/kokil-tn</a>
+            <a href="https://github.com/kokilk" target="_blank">🐙 github.com/kokilk</a>
+            <span style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mt)">📍 Dunellen, New Jersey, USA</span>
+          </div>
+          <div class="chips">
+            <span class="chip">AI Strategy</span>
+            <span class="chip green">Salesforce</span>
+            <span class="chip gold">Consulting</span>
+            <span class="chip">n8n</span>
+            <span class="chip green">Workflow AI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sd"></div>
+
+<section id="experience">
+  <div class="ct">
+    <div class="sl rv">02 — Experience</div>
+    <div class="st rv">Professional Timeline</div>
+    <div class="tline">
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">Illinois Business Consulting</div><div class="ero">Consultant</div></div><div class="emeta"><div class="edate">Feb 2026 – Present</div><div class="eloc">United States</div></div></div>
+          <div class="ecall"><strong>⚡ IMPACT HIGHLIGHT</strong>Consultant at the largest student-run consulting organization in the nation</div>
+          <ul class="ebul"><li>Delivering strategic advisory services to real clients at the largest student-run consulting org in the US.</li></ul>
+          <div class="etools"><span>Strategy Consulting</span><span>AI Innovation</span><span>Business Analysis</span></div>
+        </div>
+      </div>
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">AIESEC</div><div class="ero">Vice President — Illinois</div></div><div class="emeta"><div class="edate">Oct 2025 – Present</div><div class="eloc">Illinois, United States</div></div></div>
+          <ul class="ebul"><li>Serving as Vice President for the Illinois chapter, leading strategic initiatives and organizational growth.</li></ul>
+          <div class="etools"><span>Leadership</span><span>Strategy</span><span>Operations</span></div>
+        </div>
+      </div>
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">Goodera</div><div class="ero">Ambassador &amp; Event Host</div></div><div class="emeta"><div class="edate">Jul 2024 – Jul 2025</div><div class="eloc">Bengaluru, India</div></div></div>
+          <div class="ecall"><strong>⚡ IMPACT HIGHLIGHT</strong>Managed crowds of <span class="mbadge">150–200</span> individuals, ensuring smooth coordination at CSR events</div>
+          <ul class="ebul">
+            <li>Volunteered as a host, conducting CSR activities to bridge the gap between corporates and NGOs, fostering social impact.</li>
+            <li>Orchestrated CSR events for leading corporations, enhancing employee volunteer engagement.</li>
+            <li>Facilitated and managed large-scale corporate events, overseeing crowds of <span class="mbadge">150–200</span> individuals.</li>
+            <li>Contributed to creating meaningful societal impact through structured volunteering programs.</li>
+          </ul>
+          <div class="etools"><span>Event Management</span><span>CSR</span><span>Corporate Engagement</span></div>
+        </div>
+      </div>
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">WeWork India</div><div class="ero">Community Team</div></div><div class="emeta"><div class="edate">Sep 2024 – Feb 2025</div><div class="eloc">Bengaluru, India</div></div></div>
+          <div class="ecall"><strong>⚡ IMPACT HIGHLIGHT</strong>Elevated feedback from <span class="mbadge">8 → 299</span> in two months · Satisfaction <span class="mbadge">4.64/5</span> · Engagement <span class="mbadge">8.8</span></div>
+          <ul class="ebul">
+            <li>Managed a monthly budget to optimize member experiences and cost-effective activations.</li>
+            <li>Led the building anniversary event, generating revenue while fostering community spirit.</li>
+            <li>Increased participation elevating feedback from <span class="mbadge">8</span> to <span class="mbadge">299</span> in two months.</li>
+            <li>Boosted session attendance from <span class="mbadge">15</span> to <span class="mbadge">25</span> members, achieving satisfaction of <span class="mbadge">4.64/5</span>.</li>
+            <li>Spearheaded Winter Village initiative, contributing to engagement score of <span class="mbadge">8.8</span>.</li>
+          </ul>
+          <div class="etools"><span>Salesforce</span><span>Medallia</span><span>Netcore</span><span>Budget Management</span></div>
+        </div>
+      </div>
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">Curefit — House of Cult</div><div class="ero">Market Research Intern</div></div><div class="emeta"><div class="edate">Feb 2024 – Jul 2024</div><div class="eloc">Bengaluru, India</div></div></div>
+          <div class="ecall"><strong>⚡ IMPACT HIGHLIGHT</strong>Data-driven recommendations appreciated by senior management, shaping Cult Fit's cricket segment entry</div>
+          <ul class="ebul">
+            <li>Conducted comparative research on the Indian cricket market for the Cult Play project.</li>
+            <li>Assisted in budget planning and developed a comprehensive market strategy from introduction to growth stage.</li>
+            <li>Presented findings to senior management, receiving appreciation for keen insights.</li>
+            <li>Provided data-driven recommendations shaping strategic decisions for Cult Fit's cricket segment entry.</li>
+          </ul>
+          <div class="etools"><span>Market Research</span><span>Competitive Analysis</span><span>Budget Planning</span><span>Strategy</span></div>
+        </div>
+      </div>
+
+      <div class="titem rv">
+        <div class="ecard">
+          <div class="ehead"><div><div class="eco">Rawlplug</div><div class="ero">Marketing Team</div></div><div class="emeta"><div class="edate">Sep 2022 – Nov 2022</div><div class="eloc">India</div></div></div>
+          <ul class="ebul"><li>Contributed to marketing initiatives as part of the core marketing team.</li></ul>
+          <div class="etools"><span>Marketing</span><span>Communications</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sd"></div>
+
+<section id="skills">
+  <div class="ct">
+    <div class="sl rv">03 — Expertise</div>
+    <div class="st rv">Technical &amp; Strategic Skills</div>
+    <div class="skgrid">
+      <div class="skg rv"><div class="skgt">AI &amp; Automation</div><div class="chips"><span class="chip">GPT / ChatGPT</span><span class="chip">Claude AI</span><span class="chip">Gemini</span><span class="chip">n8n</span><span class="chip">Vertex AI</span><span class="chip">Copilot</span><span class="chip">Google AI Studio</span><span class="chip">Agentic Workflows</span><span class="chip">Prompt Engineering</span><span class="chip">Vibe Dev</span><span class="chip">AI Workflow Design</span></div></div>
+      <div class="skg rv d1"><div class="skgt">Business Strategy</div><div class="chips"><span class="chip gold">Strategy Consulting</span><span class="chip gold">Market Research</span><span class="chip gold">Competitive Analysis</span><span class="chip gold">Digital Business Models</span><span class="chip gold">Private Equity &amp; VC</span></div></div>
+      <div class="skg rv d2"><div class="skgt">Tools &amp; Platforms</div><div class="chips"><span class="chip green">Salesforce</span><span class="chip green">Tableau</span><span class="chip green">Smartsheet</span><span class="chip green">Medallia</span><span class="chip green">Netcore</span></div></div>
+      <div class="skg rv d1"><div class="skgt">Communications</div><div class="chips"><span class="chip">Public Speaking</span><span class="chip">Corporate Communications</span><span class="chip">Event Planning</span><span class="chip">Event Management</span></div></div>
+      <div class="skg rv d2"><div class="skgt">Finance &amp; Analysis</div><div class="chips"><span class="chip gold">Business Analysis</span><span class="chip gold">Budget Planning</span><span class="chip gold">Payment Technologies</span><span class="chip gold">Data Analytics</span></div></div>
+      <div class="skg rv d3"><div class="skgt">Leadership</div><div class="chips"><span class="chip green">VP — AIESEC Illinois</span><span class="chip green">Community Building</span><span class="chip green">CSR Management</span><span class="chip green">Lions Club International</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="sd"></div>
+
+<section id="education">
+  <div class="ct">
+    <div class="sl rv">04 — Education &amp; Credentials</div>
+    <div class="st rv">Academic Foundation</div>
+    <div class="edgrid">
+      <div>
+        <div class="edcard rv"><div class="edinst">University of Illinois Urbana-Champaign</div><div class="eddeg">Master's — Business Administration, Management &amp; Operations</div><div class="eddt">Expected June 2025</div></div>
+        <div class="edcard rv d1"><div class="edinst">Jain (Deemed-to-be) University</div><div class="eddeg">BBA — Honors / Regents Program</div><div class="eddt">2021 – 2024</div></div>
+        <div class="edcard rv d2"><div class="edinst">Henry P. Becton High School</div><div class="eddeg">High School Diploma</div><div class="eddt">Sep 2019 – May 2021</div></div>
+      </div>
+      <div>
+        <div class="sl rv" style="margin-bottom:20px">Certifications</div>
+        <div class="ccard rv"><div class="cname">The Future of Payment Technologies</div><div class="ciss">Professional Certification</div><div class="vbadge">✓ Verified</div></div>
+        <div class="ccard rv d1"><div class="cname">Digital Business Models</div><div class="ciss">Professional Certification</div><div class="vbadge">✓ Verified</div></div>
+        <div class="ccard rv d2"><div class="cname">What Is Business Analysis?</div><div class="ciss">Professional Certification</div><div class="vbadge">✓ Verified</div></div>
+        <div class="ccard rv d3"><div class="cname">Private Equity and Venture Capital</div><div class="ciss">Professional Certification</div><div class="vbadge">✓ Verified</div></div>
+        <div class="ccard rv d4"><div class="cname">Public Speaking Foundations</div><div class="ciss">Professional Certification</div><div class="vbadge">✓ Verified</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="ct">
+    <div class="sl rv" style="justify-content:center">05 — Contact</div>
+    <h2 class="chead rv">Let's Build Something<br><span style="color:var(--bl)">Intelligent.</span></h2>
+    <p class="csub rv">Open to consulting engagements, strategy roles, and AI-driven business initiatives.</p>
+    <div class="cbtns rv">
+      <a href="mailto:kokiltn@gmail.com" class="bp">Send Email ↗</a>
+      <a href="https://www.linkedin.com/in/kokil-tn" target="_blank" class="bg2">LinkedIn →</a>
+      <a href="https://github.com/kokilk" target="_blank" class="bg2">GitHub →</a>
+    </div>
+    <div class="cform rv">
+      <div class="frow"><label>YOUR NAME</label><input type="text" placeholder="Jane Smith"></div>
+      <div class="frow"><label>EMAIL ADDRESS</label><input type="email" placeholder="jane@company.com"></div>
+      <div class="frow"><label>MESSAGE</label><textarea placeholder="I'd love to discuss..."></textarea></div>
+      <button class="bp" style="width:100%;justify-content:center">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ct">
+    <div class="finner">
+      <div class="fcopy">© 2025 Kokil Terakanambenagaraj · Built with HTML + CSS + JS</div>
+      <div class="flinks">
+        <a href="https://www.linkedin.com/in/kokil-tn" target="_blank">LinkedIn</a>
+        <a href="mailto:kokiltn@gmail.com">Email</a>
+        <a href="https://github.com/kokilk" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// THEME
+function toggleTheme(){
+  var l=document.body.classList.toggle('light');
+  document.getElementById('ti').textContent=l?'🌙':'☀️';
+  document.getElementById('tl').textContent=l?'Dark':'Light';
+  try{localStorage.setItem('kt-theme',l?'light':'dark');}catch(e){}
+}
+try{if(localStorage.getItem('kt-theme')==='light'){document.body.classList.add('light');document.getElementById('ti').textContent='🌙';document.getElementById('tl').textContent='Dark';}}catch(e){}
+
+// SPLASH
+var phrases=['Bridging AI and Business Strategy.','Turning Data Into Decisions.','Building the Intelligent Enterprise.'];
+var pi=0;
+var spEl=document.getElementById('sp');
+var sb=document.getElementById('sb');
+var splash=document.getElementById('splash');
+setTimeout(function(){sb.style.width='100%';},60);
+var pt=setInterval(function(){
+  pi=(pi+1)%phrases.length;
+  spEl.style.opacity='0';
+  setTimeout(function(){spEl.textContent=phrases[pi];spEl.style.opacity='1';},200);
+},650);
+setTimeout(function(){
+  clearInterval(pt);
+  splash.classList.add('hide');
+  setTimeout(function(){splash.style.display='none';},700);
+  var els=document.querySelectorAll('.rv');
+  for(var i=0;i<els.length;i++){els[i].classList.add('vis');}
+},2200);
+
+// BG CANVAS
+var bgc=document.getElementById('bgc');
+var bgx=bgc.getContext('2d');
+var BW,BH,bgNodes=[],bgRings=[];
+function bgResize(){BW=bgc.width=window.innerWidth;BH=bgc.height=window.innerHeight;}
+bgResize();
+window.addEventListener('resize',bgResize);
+for(var i=0;i<45;i++){
+  bgNodes.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:2+Math.random()*3});
+}
+setInterval(function(){bgRings.push({x:Math.random()*BW,y:Math.random()*BH,r:0,maxR:140,a:.1});},7000);
+function bgDraw(){
+  bgx.clearRect(0,0,BW,BH);
+  var lm=document.body.classList.contains('light');
+  var c=lm?'rgba(2,132,199,':'rgba(14,165,233,';
+  for(var i=0;i<bgNodes.length;i++){
+    var n=bgNodes[i];
+    n.x+=n.vx;n.y+=n.vy;
+    if(n.x<0)n.x=BW;if(n.x>BW)n.x=0;if(n.y<0)n.y=BH;if(n.y>BH)n.y=0;
+    var g=bgx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*4);
+    g.addColorStop(0,c+'0.3)');g.addColorStop(1,c+'0)');
+    bgx.beginPath();bgx.arc(n.x,n.y,n.r*4,0,Math.PI*2);bgx.fillStyle=g;bgx.fill();
+    bgx.beginPath();bgx.arc(n.x,n.y,n.r,0,Math.PI*2);bgx.fillStyle=c+'0.65)';bgx.fill();
+    for(var j=i+1;j<bgNodes.length;j++){
+      var q=bgNodes[j];var d=Math.hypot(n.x-q.x,n.y-q.y);
+      if(d<130){bgx.beginPath();bgx.moveTo(n.x,n.y);bgx.lineTo(q.x,q.y);bgx.strokeStyle=c+(0.05*(1-d/130))+')';bgx.lineWidth=.35;bgx.stroke();}
+    }
+  }
+  for(var i=0;i<bgRings.length;i++){
+    var r=bgRings[i];r.r+=.7;r.a*=.98;
+    bgx.beginPath();bgx.arc(r.x,r.y,r.r,0,Math.PI*2);bgx.strokeStyle=c+r.a+')';bgx.lineWidth=1;bgx.stroke();
+    if(r.r>r.maxR)bgRings.splice(i,1);
+  }
+  requestAnimationFrame(bgDraw);
+}
+bgDraw();
+
+// BRAIN NEURAL NETWORK
+var bc=document.getElementById('bc');
+var bx=bc.getContext('2d');
+var CW=460,CH=460;
+bc.width=CW;bc.height=CH;
+var CX=CW*.5,CY=CH*.46,RX=CW*.4,RY=CH*.42;
+
+var OL=[[.50,.04],[.58,.05],[.66,.09],[.72,.15],[.76,.22],[.79,.30],[.80,.38],[.80,.46],[.78,.53],[.75,.59],[.72,.65],[.69,.71],[.66,.75],[.62,.79],[.58,.82],[.54,.84],[.50,.85],[.46,.84],[.42,.82],[.38,.79],[.34,.75],[.31,.71],[.28,.66],[.25,.60],[.22,.54],[.20,.47],[.20,.39],[.21,.31],[.24,.23],[.28,.16],[.34,.10],[.42,.06]];
+var IN=[[.50,.13],[.50,.23],[.50,.35],[.50,.47],[.50,.59],[.50,.71],[.40,.19],[.40,.31],[.40,.43],[.40,.55],[.40,.67],[.60,.19],[.60,.31],[.60,.43],[.60,.55],[.60,.67],[.30,.27],[.30,.41],[.30,.55],[.70,.27],[.70,.41],[.70,.55],[.45,.27],[.45,.41],[.45,.55],[.45,.69],[.55,.27],[.55,.41],[.55,.55],[.55,.69],[.35,.35],[.35,.51],[.65,.35],[.65,.51],[.26,.43],[.74,.43],[.26,.56],[.74,.56]];
+
+var bNodes=[],bMouse={x:-999,y:-999,d:null},bRings=[];
+
+function initBrain(){
+  bNodes=[];
+  for(var i=0;i<OL.length;i++){
+    var p=OL[i];var nx=CX+(p[0]-.5)*RX*2,ny=CY+(p[1]-.5)*RY*2;
+    bNodes.push({x:nx,y:ny,ox:nx,oy:ny,vx:0,vy:0,r:3.2,bR:3.2,pulse:Math.random()*Math.PI*2,ps:.025+Math.random()*.02,isO:true,ox2:0,oy2:0});
+  }
+  for(var i=0;i<IN.length;i++){
+    var p=IN[i];var nx=CX+(p[0]-.5)*RX*2,ny=CY+(p[1]-.5)*RY*2;
+    bNodes.push({x:nx,y:ny,ox:nx,oy:ny,vx:0,vy:0,r:2.4,bR:2.4,pulse:Math.random()*Math.PI*2,ps:.02+Math.random()*.02,isO:false,ox2:0,oy2:0});
+  }
+  var att=0;
+  while(bNodes.length<130&&att<3000){
+    att++;
+    var a=Math.random()*Math.PI*2,rad=Math.random()*.78;
+    var ax=rad*Math.cos(a),ay=rad*Math.sin(a)*.95;
+    if(ax*ax+ay*ay<=.58){
+      var nx=CX+ax*RX,ny=CY+ay*RY;
+      bNodes.push({x:nx,y:ny,ox:nx,oy:ny,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.12,r:2+Math.random(),bR:2+Math.random(),pulse:Math.random()*Math.PI*2,ps:.018+Math.random()*.018,isO:false,ox2:0,oy2:0});
+    }
+  }
+}
+
+function getScaledPos(e,canvas){
+  var r=canvas.getBoundingClientRect();
+  var sx=CW/r.width,sy=CH/r.height;
+  return{x:(e.clientX-r.left)*sx,y:(e.clientY-r.top)*sy};
+}
+
+bc.addEventListener('mousemove',function(e){
+  var p=getScaledPos(e,bc);bMouse.x=p.x;bMouse.y=p.y;
+  if(bMouse.d!==null){bNodes[bMouse.d].x=bMouse.x+bNodes[bMouse.d].ox2;bNodes[bMouse.d].y=bMouse.y+bNodes[bMouse.d].oy2;bNodes[bMouse.d].vx=0;bNodes[bMouse.d].vy=0;}
+});
+bc.addEventListener('mousedown',function(e){
+  var p=getScaledPos(e,bc),px=p.x,py=p.y;
+  var cl=-1,md=24;
+  for(var i=0;i<bNodes.length;i++){var d=Math.hypot(bNodes[i].x-px,bNodes[i].y-py);if(d<md){md=d;cl=i;}}
+  if(cl>=0){bMouse.d=cl;bNodes[cl].ox2=bNodes[cl].x-px;bNodes[cl].oy2=bNodes[cl].y-py;}
+  else{
+    bRings.push({x:px,y:py,r:0,maxR:180,a:.38});
+    for(var i=0;i<bNodes.length;i++){var n=bNodes[i];var dx=n.x-px,dy=n.y-py,d=Math.hypot(dx,dy);if(d<150&&d>0){var f=(150-d)/150*3;n.vx+=(dx/d)*f;n.vy+=(dy/d)*f;}}
+  }
+});
+bc.addEventListener('mouseup',function(){bMouse.d=null;});
+bc.addEventListener('mouseleave',function(){bMouse.x=-999;bMouse.y=-999;bMouse.d=null;});
+bc.addEventListener('touchmove',function(e){
+  e.preventDefault();
+  var r=bc.getBoundingClientRect(),sx=CW/r.width,sy=CH/r.height;
+  bMouse.x=(e.touches[0].clientX-r.left)*sx;bMouse.y=(e.touches[0].clientY-r.top)*sy;
+  if(bMouse.d!==null){bNodes[bMouse.d].x=bMouse.x+bNodes[bMouse.d].ox2;bNodes[bMouse.d].y=bMouse.y+bNodes[bMouse.d].oy2;}
+},{passive:false});
+bc.addEventListener('touchstart',function(e){
+  var r=bc.getBoundingClientRect(),sx=CW/r.width,sy=CH/r.height;
+  var px=(e.touches[0].clientX-r.left)*sx,py=(e.touches[0].clientY-r.top)*sy;
+  var cl=-1,md=30;
+  for(var i=0;i<bNodes.length;i++){var d=Math.hypot(bNodes[i].x-px,bNodes[i].y-py);if(d<md){md=d;cl=i;}}
+  if(cl>=0){bMouse.d=cl;bNodes[cl].ox2=bNodes[cl].x-px;bNodes[cl].oy2=bNodes[cl].y-py;}
+});
+bc.addEventListener('touchend',function(){bMouse.d=null;});
+
+function drawBrain(){
+  bx.clearRect(0,0,CW,CH);
+  var lm=document.body.classList.contains('light');
+  var PC=lm?'2,132,199':'14,165,233';
+  var AC=lm?'5,150,105':'16,217,160';
+  for(var i=0;i<bNodes.length;i++){
+    var n=bNodes[i];
+    if(bMouse.d!==i){
+      n.vx+=(n.ox-n.x)*.005;n.vy+=(n.oy-n.y)*.005;
+      var mdx=n.x-bMouse.x,mdy=n.y-bMouse.y,md=Math.hypot(mdx,mdy);
+      if(md<90&&md>0){var f=(90-md)/90*.15;n.vx+=(mdx/md)*f;n.vy+=(mdy/md)*f;}
+      n.vx*=.91;n.vy*=.91;
+      var spd=Math.hypot(n.vx,n.vy);if(spd>3.5){n.vx=n.vx/spd*3.5;n.vy=n.vy/spd*3.5;}
+      n.x+=n.vx;n.y+=n.vy;
+    }
+    n.pulse+=n.ps;
+    var pr=n.bR+Math.sin(n.pulse)*.8;
+    var nm=Math.hypot(n.x-bMouse.x,n.y-bMouse.y)<80;
+    var id=bMouse.d===i;
+    for(var j=i+1;j<bNodes.length;j++){
+      var q=bNodes[j],dx=n.x-q.x,dy=n.y-q.y,dist=Math.hypot(dx,dy);
+      if(dist<90){
+        var qm=Math.hypot(q.x-bMouse.x,q.y-bMouse.y)<80;
+        var isE=n.isO||q.isO;
+        var alpha=(1-dist/90)*(nm||qm?.52:(isE?.2:.1));
+        bx.beginPath();bx.moveTo(n.x,n.y);bx.lineTo(q.x,q.y);
+        bx.strokeStyle='rgba('+(nm||qm?AC:PC)+','+alpha+')';
+        bx.lineWidth=nm?.9:.35;bx.stroke();
+      }
+    }
+    if(id){
+      bx.beginPath();bx.arc(n.x,n.y,pr*5,0,Math.PI*2);bx.fillStyle='rgba('+PC+',.08)';bx.fill();
+      bx.beginPath();bx.arc(n.x,n.y,pr,0,Math.PI*2);bx.fillStyle='#fff';bx.fill();
+      bx.beginPath();bx.arc(n.x,n.y,pr*7,0,Math.PI*2);bx.strokeStyle='rgba('+PC+',.25)';bx.lineWidth=1;bx.stroke();
+    } else if(nm){
+      bx.beginPath();bx.arc(n.x,n.y,pr*3.5,0,Math.PI*2);bx.fillStyle='rgba('+AC+',.12)';bx.fill();
+      bx.beginPath();bx.arc(n.x,n.y,pr,0,Math.PI*2);bx.fillStyle='rgba('+AC+',1)';bx.fill();
+    } else if(n.isO){
+      var g2=bx.createRadialGradient(n.x,n.y,0,n.x,n.y,pr*3);
+      g2.addColorStop(0,'rgba('+PC+',.22)');g2.addColorStop(1,'rgba('+PC+',0)');
+      bx.beginPath();bx.arc(n.x,n.y,pr*3,0,Math.PI*2);bx.fillStyle=g2;bx.fill();
+      bx.beginPath();bx.arc(n.x,n.y,pr,0,Math.PI*2);bx.fillStyle='rgba('+PC+',.88)';bx.fill();
+    } else {
+      bx.beginPath();bx.arc(n.x,n.y,pr*.9,0,Math.PI*2);bx.fillStyle='rgba('+PC+',.38)';bx.fill();
+    }
+  }
+  for(var i=0;i<bRings.length;i++){
+    var ring=bRings[i];ring.r+=1.4;ring.a*=.96;
+    bx.beginPath();bx.arc(ring.x,ring.y,ring.r,0,Math.PI*2);
+    bx.strokeStyle='rgba('+AC+','+ring.a+')';bx.lineWidth=1.5;bx.stroke();
+    if(ring.r>ring.maxR||ring.a<.005)bRings.splice(i,1);
+  }
+  requestAnimationFrame(drawBrain);
+}
+
+initBrain();
+drawBrain();
+
+// SCROLL PROGRESS
+window.addEventListener('scroll',function(){
+  var pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+  document.getElementById('pbar').style.width=pct+'%';
+});
+
+// SCROLL REVEAL
+var ro=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(function(el){ro.observe(el);});
+
+// COUNTERS
+var co=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    var el=e.target,t=parseInt(el.dataset.target),s=el.dataset.suffix||'',c=0;
+    var iv=setInterval(function(){c=Math.min(c+t/60,t);el.textContent=Math.round(c)+s;if(c>=t)clearInterval(iv);},16);
+    co.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(function(el){co.observe(el);});
+
+// NAV ACTIVE
+var navSecs=document.querySelectorAll('section[id]');
+var navLinks=document.querySelectorAll('.nls a');
+window.addEventListener('scroll',function(){
+  var cur='';
+  navSecs.forEach(function(s){if(window.scrollY>=s.offsetTop-100)cur=s.id;});
+  navLinks.forEach(function(a){a.classList.toggle('act',a.getAttribute('href')==='#'+cur);});
+});
+</script>
+</body>
+</html>
