@@ -122,6 +122,28 @@ section{position:relative;z-index:1}
 .etools{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid var(--faint)}
 .etools span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);padding:3px 9px;border:1px solid var(--faint);border-radius:4px}
 /* SKILLS */
+#projects{padding:100px 0}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.proj-col-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--blue);margin-bottom:20px;display:flex;align-items:center;gap:10px;letter-spacing:-.5px}
+.proj-col-title::before{content:'';width:3px;height:22px;background:var(--blue);border-radius:2px;display:block}
+.proj-col-title.gold-title{color:var(--gold)}
+.proj-col-title.gold-title::before{background:var(--gold)}
+.pcard{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:24px;margin-bottom:20px;transition:all .3s;position:relative;overflow:hidden}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--green));opacity:0;transition:opacity .3s}
+.pcard:hover{border-color:rgba(14,165,233,.3);box-shadow:0 0 36px rgba(14,165,233,.08);transform:translateY(-3px)}
+.pcard:hover::before{opacity:1}
+.pcard.gold-card::before{background:linear-gradient(90deg,var(--gold),#f5c842)}
+.pcard.gold-card:hover{border-color:rgba(232,160,32,.3);box-shadow:0 0 36px rgba(232,160,32,.08)}
+.ptitle{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.porg{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);margin-bottom:14px}
+.pcard.gold-card .porg{color:var(--gold)}
+.pbul{list-style:none;margin-bottom:14px}
+.pbul li{display:flex;gap:9px;font-size:13px;color:var(--text);line-height:1.65;padding:4px 0;border-bottom:1px solid rgba(26,40,64,.3);opacity:.88}
+.pbul li:last-child{border-bottom:none}
+.pbul li::before{content:'◆';color:var(--blue);font-size:7px;margin-top:5px;flex-shrink:0}
+.pcard.gold-card .pbul li::before{color:var(--gold)}
+.ptags{display:flex;flex-wrap:wrap;gap:6px}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mt);padding:3px 9px;border:1px solid var(--faint);border-radius:4px}
 #skills{padding:100px 0}
 .skgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .skg{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:22px;transition:all .3s}
@@ -160,7 +182,7 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
 .rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
 .rv.vis{opacity:1;transform:translateY(0)}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
-@media(max-width:1100px){.h2col{flex-direction:column}.bwrap{width:100%;height:340px;min-width:unset}#bc{width:100%;height:340px}.agrid{grid-template-columns:1fr}.pcard{position:static}.skgrid{grid-template-columns:1fr 1fr}.edgrid{grid-template-columns:1fr}.igrid{grid-template-columns:repeat(2,1fr)}.iitem:nth-child(2){border-right:none}}
+@media(max-width:1100px){.h2col{flex-direction:column}.bwrap{width:100%;height:340px;min-width:unset}#bc{width:100%;height:340px}.agrid{grid-template-columns:1fr}.pcard{position:static}.skgrid{grid-template-columns:1fr 1fr}.edgrid{grid-template-columns:1fr}.igrid{grid-template-columns:repeat(2,1fr)}.iitem:nth-child(2){border-right:none}.proj-grid{grid-template-columns:1fr}}
 @media(max-width:640px){.nls{display:none}.nbg{display:block}.hn{white-space:normal;font-size:clamp(26px,6vw,42px)}.skgrid{grid-template-columns:1fr}.ehead{flex-direction:column}.emeta{text-align:left}.bwrap{height:280px}#bc{height:280px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#bgc{display:none}}
 </style>
@@ -180,6 +202,7 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
   <ul class="nls">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -194,6 +217,7 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
   <button class="mc" onclick="document.querySelector('.mm').classList.remove('open')">✕</button>
   <a href="#about" onclick="document.querySelector('.mm').classList.remove('open')">About</a>
   <a href="#experience" onclick="document.querySelector('.mm').classList.remove('open')">Experience</a>
+  <a href="#projects" onclick="document.querySelector('.mm').classList.remove('open')">Projects</a>
   <a href="#skills" onclick="document.querySelector('.mm').classList.remove('open')">Skills</a>
   <a href="#education" onclick="document.querySelector('.mm').classList.remove('open')">Education</a>
   <a href="#contact" onclick="document.querySelector('.mm').classList.remove('open')">Contact</a>
@@ -255,7 +279,7 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
           <div class="prole">AI Automation &amp; Workflow Consultant</div>
           <div class="ftag">Currently: Consulting @ IBC</div>
           <div class="pinfo">
-            <a href="mailto:kokiltn@gmail.com">📧 kokiltn@gmail.com</a>
+            <a href="/cdn-cgi/l/email-protection#d4bfbbbfbdb8a0ba94b3b9b5bdb8fab7bbb9">📧 <span class="__cf_email__" data-cfemail="7e15111517120a103e19131f1712501d1113">[email&#160;protected]</span></a>
             <a href="https://www.linkedin.com/in/kokil-tn" target="_blank">🔗 linkedin.com/in/kokil-tn</a>
             <a href="https://github.com/kokilk" target="_blank">🐙 github.com/kokilk</a>
             <a href="#">📍 Dunellen, New Jersey, USA</a>
@@ -332,9 +356,82 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
 
 <div class="sd"></div>
 
+<section id="projects">
+  <div class="ct">
+    <div class="sl rv">03 — Projects</div>
+    <div class="st rv">Featured Work</div>
+    <div class="proj-grid">
+
+      <!-- CONSULTING PROJECTS -->
+      <div class="rv">
+        <div class="proj-col-title gold-title">Consulting Projects</div>
+
+        <div class="pcard gold-card rv">
+          <div class="ptitle">RobotLAB, San Jose Franchise</div>
+          <div class="porg">Consulting Project · Project Lead</div>
+          <ul class="pbul">
+            <li>Led strategic marketing transformation, applying problem-solving frameworks (SMART, MECE, SCR), achieving a <strong>10x increase in social media engagement</strong> through content optimization and targeted audience segmentation.</li>
+            <li>Developed comprehensive marketing and outreach roadmap with defined growth milestones, performance KPIs, and balanced customer needs — prioritizing initiatives based on impact, feasibility, and scalability.</li>
+          </ul>
+          <div class="ptags">
+            <span class="ptag">Marketing Strategy</span>
+            <span class="ptag">SMART Framework</span>
+            <span class="ptag">MECE</span>
+            <span class="ptag">SCR</span>
+            <span class="ptag">KPI Tracking</span>
+          </div>
+        </div>
+
+        <div class="pcard gold-card rv d1">
+          <div class="ptitle">PetSmart Brand Rebranding</div>
+          <div class="porg">Consulting Project · Strategy Lead</div>
+          <ul class="pbul">
+            <li>Led end-to-end strategic rebranding for PetSmart, conducting comprehensive market analysis (SWOT, PESTEL, 5Cs) to identify growth opportunities and competitive positioning.</li>
+            <li>Developed business case with financial projections and growth analysis; managed implementation via Smartsheet with Gantt Charts for KPI tracking.</li>
+          </ul>
+          <div class="ptags">
+            <span class="ptag">SWOT</span>
+            <span class="ptag">PESTEL</span>
+            <span class="ptag">5Cs Analysis</span>
+            <span class="ptag">Smartsheet</span>
+            <span class="ptag">Gantt Charts</span>
+            <span class="ptag">Financial Projections</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECHNICAL PROJECTS -->
+      <div class="rv d1">
+        <div class="proj-col-title">Technical Projects</div>
+
+        <div class="pcard rv">
+          <div class="ptitle">RAG AI Agent Development</div>
+          <div class="porg">n8n · OpenAI · Supabase · Google Embeddings</div>
+          <ul class="pbul">
+            <li>Designed and implemented a Retrieval-Augmented Generation (RAG) pipeline using n8n, Google Embeddings, and Supabase vector database for document-based AI question answering.</li>
+            <li>Built an end-to-end automated workflow including document ingestion, text chunking, embedding generation, vector storage, semantic retrieval, and LLM-powered response generation.</li>
+          </ul>
+          <div class="ptags">
+            <span class="ptag">n8n</span>
+            <span class="ptag">OpenAI</span>
+            <span class="ptag">Supabase</span>
+            <span class="ptag">Google Embeddings</span>
+            <span class="ptag">RAG Pipeline</span>
+            <span class="ptag">Vector DB</span>
+            <span class="ptag">LLM</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sd"></div>
+
 <section id="skills">
   <div class="ct">
-    <div class="sl rv">03 — Expertise</div>
+    <div class="sl rv">04 — Expertise</div>
     <div class="st rv">Technical &amp; Strategic Skills</div>
     <div class="skgrid">
       <div class="skg rv"><div class="skgt">AI &amp; Automation</div><div class="chips"><span class="chip">GPT / ChatGPT</span><span class="chip">Claude AI</span><span class="chip">Gemini</span><span class="chip">n8n</span><span class="chip">Vertex AI</span><span class="chip">Copilot</span><span class="chip">Google AI Studio</span><span class="chip">Agentic Workflows</span><span class="chip">Prompt Engineering</span><span class="chip">Vibe Dev</span><span class="chip">AI Workflow Design</span></div></div>
@@ -351,7 +448,7 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
 
 <section id="education">
   <div class="ct">
-    <div class="sl rv">04 — Education &amp; Credentials</div>
+    <div class="sl rv">05 — Education &amp; Credentials</div>
     <div class="st rv">Academic Foundation</div>
     <div class="edgrid">
       <div>
@@ -373,11 +470,11 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
 
 <section id="contact">
   <div class="ct">
-    <div class="sl rv" style="justify-content:center">05 — Contact</div>
+    <div class="sl rv" style="justify-content:center">06 — Contact</div>
     <h2 class="ch rv">Let's Build Something<br><span style="color:var(--blue)">Intelligent.</span></h2>
     <p class="csub rv">Open to consulting engagements, strategy roles, and AI-driven business initiatives.</p>
     <div class="cbtns rv">
-      <a href="mailto:kokiltn@gmail.com" class="bp">Send Email ↗</a>
+      <a href="/cdn-cgi/l/email-protection#caa1a5a1a3a6bea48aada7aba3a6e4a9a5a7" class="bp">Send Email ↗</a>
       <a href="https://www.linkedin.com/in/kokil-tn" target="_blank" class="bg2">LinkedIn →</a>
       <a href="https://github.com/kokilk" target="_blank" class="bg2">GitHub →</a>
     </div>
@@ -397,14 +494,14 @@ footer{padding:26px 0;border-top:1px solid var(--faint);position:relative;z-inde
       <div class="fcopy">© 2025 Kokil Terakanambenagaraj · Built with HTML + CSS + JS</div>
       <div class="flinks">
         <a href="https://www.linkedin.com/in/kokil-tn" target="_blank">LinkedIn</a>
-        <a href="mailto:kokiltn@gmail.com">Email</a>
+        <a href="/cdn-cgi/l/email-protection#402b2f2b292c342e00272d21292c6e232f2d">Email</a>
         <a href="https://github.com/kokilk" target="_blank">GitHub</a>
       </div>
     </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 emailjs.init('dm9INMCUmqs02-JA4');
 
